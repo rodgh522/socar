@@ -1,0 +1,11 @@
+.btn {
+  font-size: 20;
+	height: 60;
+  padding-top: 18;
+  text-align: center;
+  align-content: center;
+  color: #fff;
+
+  &.btn-go-login{ background-color: #374553;}
+  &.btn-go-join{ background-color: #0BB8FF;}
+}

@@ -1,0 +1,15 @@
+<GridLayout rows="*, auto">
+  <Carousel row="0" #carousel [items]="images" 
+    showIndicator="true" indicatorColor="#fff" finite="true" bounce="true"
+    indicatorOffset="0, -10">
+    <CarouselItem *ngFor="let item of images" verticalAlignment="middle">
+      <GridLayout>
+        <Image [src]="item" stretch="aspectFill" row="0"></Image>
+      </GridLayout>
+    </CarouselItem>
+  </Carousel>
+  <GridLayout columns="*, *" row="1">
+    <Label text="로그인" col="0" class="btn btn-go-login"></Label>
+    <Label text="가입하기" col="1" class="btn btn-go-join"></Label>
+  </GridLayout>
+</GridLayout>
