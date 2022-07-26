@@ -4,10 +4,11 @@ import { WebViewExtModule } from "@nota/nativescript-webview-ext/angular";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { LandingComponent } from './pages/landing/landing.component';
 
 @NgModule({
   imports: [NativeScriptModule, AppRoutingModule, WebViewExtModule],
-  declarations: [AppComponent],
+  declarations: [AppComponent, LandingComponent],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA],
