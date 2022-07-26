@@ -16,6 +16,7 @@
     "@nativescript/core": "~8.2.0",
     "@nativescript/theme": "~3.0.2",
     "@nota/nativescript-webview-ext": "^8.0.2",
+    "@nstudio/nativescript-carousel": "^8.0.3",
     "nativescript-advanced-webview": "^7.0.1",
     "rxjs": "~7.5.0",
     "zone.js": "~0.11.5"
