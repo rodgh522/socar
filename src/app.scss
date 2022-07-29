@@ -23,3 +23,15 @@ The following CSS rule changes the font size of all Buttons that have the
 Button.-primary {
   font-size: 18;
 }
+
+.far {
+  font-family: Font Awesome 5 Free, fa-regular-400, "Font Awesome 5 Free", "fa-regular-400";
+  font-weight: 400;
+  font-size: 20;
+}
+
+.fas {
+  font-family: Font Awesome 5 Free, fa-solid-900, "Font Awesome 5 Free", "fa-solid-900";
+  font-weight: 900;
+  font-size: 20;
+}
