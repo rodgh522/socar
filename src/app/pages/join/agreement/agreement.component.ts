@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SelectedIndexChangedEventData } from 'nativescript-drop-down';
+import { Agreement } from '~/app/@core/global/type';
+import { JoinService } from '../join.service';
 
 @Component({
   selector: 'app-agreement',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AgreementComponent implements OnInit {
 
-  constructor() { }
+  agreement: Agreement;
+  checkAll: boolean;
+  requireAll: boolean;
+  optionalAll: boolean;
+  checked = true;
+  
+  constructor(
+    private _joinService: JoinService
+  ) { 
+    this.agreement = this._joinService.agreement;
+    this.checkAll = false;
+    this.requireAll = false;
+    this.optionalAll = false;
+  }
 
   ngOnInit(): void {
   }
-
+  
+  watchRequires() {
+    this.requireAll = this.agreement.terms && this.agreement.privacy && this.agreement.location;
+    return this.requireAll;
+  }
 }

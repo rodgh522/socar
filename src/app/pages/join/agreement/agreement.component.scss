@@ -1,4 +1,66 @@
+
 .page-container{
   background-color: #f6f6f6;
   padding: 10;
+
+  .text { color: #999;}
 }
+
+@keyframes show {
+  // from { transform: translateY(-100); opacity: 0;}
+  // to { transform: translateY(0); opacity: 1;}
+  from { height: 0; opacity: 0;}
+  to { height: auto; opacity: 1;}
+}
+
+@keyframes hide {
+  // from { transform: translateY(0); opacity: 1;}
+  // to { transform: translateY(-100); opacity: 0;}
+  from { height: auto; opacity: 1;}
+  to { height: 0; opacity: 0;}
+}
+
+.view {
+  animation-name: show;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.hide {
+  animation-name: hide;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.label-line {
+  padding: 10 5;
+
+  * { padding: 0 5;}
+}
+
+.require-agreement-all, .optional-agreement-all {
+  border-width: 1;
+  border-color: #e6e6e6;
+  padding: 10 5;
+
+  * {
+    padding: 0 5;
+  }
+}
+
+.require-agreement-item, .optional-agreement-item{
+  border-width: 1;
+  border-color: #e6e6e6;
+  border-top-width: 0;
+  padding: 10 0;
+
+  * { padding: 2 5;}
+}
+
+.active-icon{ opacity: 1;}
+.deactive-icon { opacity: 0.2;}
+.require-icon { color: #f40; font-size: 8; }
+
+.list-dot{ font-size: 3; vertical-align: middle; margin-left: 15; color: #999; margin-right: 10;}
+
+.btn-submit{ width: 100%; height: 60; background-color: #eeeeee; text-align: center; font-size: 20; padding-top: 15;}
