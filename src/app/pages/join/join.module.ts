@@ -7,22 +7,25 @@ import { Routes } from '@angular/router';
 import { SharedModule } from '~/app/@core/shared.module';
 import { Step1Component } from './step1/step1.component';
 import { AgreementComponent } from './agreement/agreement.component';
+import { VerifyComponent } from './verify/verify.component';
 
 const routes: Routes = [
   { path: '', component: Step1Component },
   { path: 'agreement', component: AgreementComponent },
+  { path: 'verify', component: VerifyComponent },
 ];
 
 @NgModule({
   declarations: [
     JoinComponent,
     Step1Component,
-    AgreementComponent
+    AgreementComponent,
+    VerifyComponent
   ],
   imports: [
     CommonModule, NativeScriptCommonModule, 
     NativeScriptRouterModule.forChild(routes),
-    SharedModule
+    SharedModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [ JoinService ]

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectedIndexChangedEventData } from 'nativescript-drop-down';
 import { Agreement } from '~/app/@core/global/type';
 import { JoinService } from '../join.service';
 
