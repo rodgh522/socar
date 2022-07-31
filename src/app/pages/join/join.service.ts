@@ -1,19 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Agreement } from '~/app/@core/global/type';
+import { BasicUserInfo, SubscribedEvent } from '~/app/@core/global/type';
+import { setString } from '@nativescript/core/application-settings';
 
 @Injectable()
 export class JoinService {
 
-  agreement: Agreement;
+  events: SubscribedEvent;
+  basicInfo: BasicUserInfo;
+  loginInfo: {
+    loginId: string,
+    pwd: string,
+    inviteCode?: string
+  };
 
-  constructor() { 
-    this.agreement = {
-      terms: false,
-      privacy: false,
-      location: false,
-      push: false,
-      SMS: false,
-      email: false
+  constructor() { }
+
+  onSubmit() {
+    const user = {
+      ...this.events,
+      ...this.basicInfo,
+      ...this.loginInfo
     };
+
+    let json = JSON.stringify(user);
+    setString('storedUsers', json);
   }
+  
 }

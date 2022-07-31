@@ -62,7 +62,7 @@
         <StackLayout class="info-item">
           <Label text="이름"></Label>
           <GridLayout columns="auto, *" class="">
-            <GridLayout col="0" columns="auto, auto" class="field-left" (tap)="openOption()">
+            <GridLayout col="0" columns="auto, auto" class="field-left">
               <Label text="내국인" col="0"></Label>
               <Label text="&#xf078;" class="fas" col="1"></Label>
             </GridLayout>
@@ -129,9 +129,10 @@
     </GridLayout>
   </ScrollView>
   <Button row="2"
-    text="인증완료"
+    text="인증완료 {{serviceTerm.valid}} {{ userInfo.valid }}"
     [isEnabled]="serviceTerm.valid && userInfo.valid"
     class="btn-submit"
+    (tap)="nextPhase()"
     nsRouterLink="/join/form"
   ></Button>
 </GridLayout>

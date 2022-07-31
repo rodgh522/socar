@@ -14,6 +14,12 @@
       <TextField hint="비밀번호 입력" secure="true"
         formControlName="pwd">
       </TextField>
+      <Label 
+        text="대문자, 소문자, 숫자, 특수문자 중 2개조합 8자리이상" 
+        class="error-hint"
+        *ngIf="infoForm.get('pwd').touched && !infoForm.get('pwd').valid"
+        textWrap="true"
+      ></Label>
     </StackLayout>
     <StackLayout row="3" class="form-item">
       <Label text="비밀번호 확인"></Label>
@@ -23,7 +29,8 @@
     </StackLayout>
     <StackLayout row="4" class="form-item">
       <Label text="(선택) 초대 코드"></Label>
-      <TextField hint="초대 코드 입력"></TextField>
+      <TextField hint="초대 코드 입력"
+        formControlName="inviteCode"></TextField>
     </StackLayout>
     <GridLayout row="5" columns="auto, *">
       <Label text="&#xf111;" class="fas list-dot" col="0"></Label>

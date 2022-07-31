@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { formToObj } from '~/app/@core/global/global-fn';
 import { FormVaildatorService } from '~/app/@core/service/form-vaildator.service';
+import { JoinService } from './join.service';
 
 @Component({
   selector: 'app-join',
@@ -12,6 +14,7 @@ export class JoinComponent implements OnInit {
   infoForm: FormGroup;
 
   constructor(
+    private _joinService: JoinService,
     private _fb: FormBuilder,
     private _formValidatorService: FormVaildatorService
   ) { }
@@ -33,11 +36,17 @@ export class JoinComponent implements OnInit {
       rePwd: ['', [
         Validators.required,
         this._formValidatorService.equalTo('pwd')
-      ]]
+      ]],
+      inviteCode: ['']
     });
   }
 
   onSubmit() {
+    const loginInfo = formToObj(this.infoForm);
+    delete loginInfo.rePwd;
+
+    this._joinService.loginInfo = loginInfo;
+    this._joinService.onSubmit();
   }
   
 }

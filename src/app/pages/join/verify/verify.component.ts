@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { formToObj } from '~/app/@core/global/global-fn';
+import { JoinService } from '../join.service';
 
 @Component({
   selector: 'app-verify',
@@ -13,6 +15,7 @@ export class VerifyComponent implements OnInit {
   userInfo: FormGroup;
 
   constructor(
+    private _joinService: JoinService,
     private _fb: FormBuilder
   ) { 
     this.termAll = false;
@@ -34,9 +37,19 @@ export class VerifyComponent implements OnInit {
 
     this.userInfo = this._fb.group({
       userName: ['', [ Validators.required] ],
-      dateOfBirth: ['', [ Validators.required, Validators.min(6)] ],
-      firstNum: ['', [ Validators.required] ],
-      phone: ['', [ Validators.required, Validators.pattern('^[0-9]{10, 11}$') ]]
+      dateOfBirth: ['', [
+        Validators.required,
+        Validators.min(6),
+        Validators.pattern('^[0-9]+$')
+      ]],
+      firstNum: ['', [
+        Validators.required,
+        Validators.pattern('[0-9]')
+      ]],
+      phone: ['', [
+        Validators.required,
+        Validators.pattern('^[0-9]{10,11}$')
+      ]]
     });
   }
 
@@ -60,5 +73,8 @@ export class VerifyComponent implements OnInit {
     }
   }
 
-  openOption(){}
+  nextPhase() {
+    this._joinService.basicInfo = formToObj(this.userInfo);
+  }
+  
 }

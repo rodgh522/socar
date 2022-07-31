@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Agreement } from '~/app/@core/global/type';
 import { JoinService } from '../join.service';
+import { formToObj } from '~/app/@core/global/global-fn';
 
 @Component({
   selector: 'app-agreement',
@@ -10,7 +10,6 @@ import { JoinService } from '../join.service';
 })
 export class AgreementComponent implements OnInit {
 
-  agreement: Agreement;
   requireForm: FormGroup;
   optionalForm: FormGroup;
   termsAll: boolean;
@@ -21,7 +20,6 @@ export class AgreementComponent implements OnInit {
     private _joinService: JoinService,
     private _fb: FormBuilder
   ) { 
-    this.agreement = this._joinService.agreement;
     this.termsAll = false;
     this.requireAll = false;
     this.optionalAll = false;
@@ -82,5 +80,9 @@ export class AgreementComponent implements OnInit {
     for (const key in group.controls) {
       group.get(key).setValue(value);
     }
+  }
+
+  nextPhase() {
+    this._joinService.events = formToObj(this.optionalForm);
   }
 }
