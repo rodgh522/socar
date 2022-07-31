@@ -1,40 +1,28 @@
 .page-container{
-  margin-top: 50;
-  margin-left: 20;
-  text-align: left;
+  background-color: #f6f6f6;
+  padding: 10;
 }
 
-.step-bar{
-  width: 30; 
-  height: 3; 
-  background-color: #a6a6a6; 
-  border-radius: 1em;
-  margin-bottom: 50;
+.form-item{
+  margin-top: 15;
 
-  &.bar-right {
-    background-color: #e6e6e6;
-    margin-left: 3;
+  TextField {
+    border-width: 1;
+    border-color: #e6e6e6;
+    width: 100%;
+    padding: 12;
+    background-color: #fff;
+
+    &.ng-touched.ng-invalid {
+      border-color: #f11;
+    }
   }
 }
 
-.banner-title{
-  font-size: 25;
-  font-weight: bold;
-  color: #666;
-}
-
-.banner-desc{
-  font-size: 13;
-  font-weight: 600;
-  color: #999;
-}
-
-.btn-go-join{
-  margin: 20;
-  width: 95%;
-  text-align: center;
-  font-size: 18;
-  height: 70;
+.btn-submit { 
+  width: 100%;
   background-color: #0BB8FF;
   color: #fff;
+  margin: 0;
+  padding: 0;
 }

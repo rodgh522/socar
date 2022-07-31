@@ -1,34 +1,42 @@
-<StackLayout class="page-container">
-  <GridLayout columns="auto, auto" verticalAlignment="top">
-    <Label text="" col="0" class="step-bar"></Label>
-    <Label text="" col="1" class="step-bar bar-right"></Label>
+<GridLayout rows="auto, *, auto">
+  <app-action-bar row="0" title="기본정보"></app-action-bar>
+  <GridLayout row="1" rows="auto, auto, auto, auto, auto, auto"
+    class="page-container"
+    [formGroup]="infoForm">
+    <Label text="쏘카 이용을 위한 기본 정보를 입력해주세요." row="0"></Label>
+    <StackLayout row="1" class="form-item">
+      <Label text="아이디"></Label>
+      <TextField hint="이메일 주소 입력"
+        formControlName="loginId"></TextField>
+    </StackLayout>
+    <StackLayout row="2" class="form-item">
+      <Label text="비밀번호"></Label>
+      <TextField hint="비밀번호 입력" secure="true"
+        formControlName="pwd">
+      </TextField>
+    </StackLayout>
+    <StackLayout row="3" class="form-item">
+      <Label text="비밀번호 확인"></Label>
+      <TextField hint="비밀번호 확인" secure="true"
+        formControlName="rePwd">
+      </TextField>
+    </StackLayout>
+    <StackLayout row="4" class="form-item">
+      <Label text="(선택) 초대 코드"></Label>
+      <TextField hint="초대 코드 입력"></TextField>
+    </StackLayout>
+    <GridLayout row="5" columns="auto, *">
+      <Label text="&#xf111;" class="fas list-dot" col="0"></Label>
+      <Label text="초대 코드를 입력하세요! 첫 드라이브를 마치면 추가 혜택을 드립니다." 
+        col="1" 
+        textWrap="true" 
+        class="text"
+      ></Label>
+    </GridLayout>
   </GridLayout>
-  <Label text="쏘카와 함께" 
-    class="banner-title" horizontalAlignment="left"
-    textWrap="true"></Label>
-  <Label text="카셰어링을"
-    class="banner-title" horizontalAlignment="left"
-    textWrap="true"></Label>
-  <Label text="시작하세요"
-    class="banner-title" horizontalAlignment="left"
-    textWrap="true"></Label>
-  <Label text="쏘카는 만 21세 이상부터 이용 가능합니다."
-    class="banner-desc" marginTop="30" horizontalAlignment="left"
-    textWrap="true"></Label>
-  <Label text="운전면허 취득 1년 이상부터 이용 가능합니다."
-    class="banner-desc" horizontalAlignment="left"
-    textWrap="true"></Label>
-  <Label text="결제카드와 운전면허증을 준비해주세요."
-    class="banner-desc" horizontalAlignment="left"
-    textWrap="true"></Label>
-  <GridLayout 
-    horizontalAlignment="right"
-    marginBottom="200">
-    <Image src="~/assets/images/join_triangle.png"></Image>
-  </GridLayout>
-</StackLayout>
-  <GridLayout top="100">
-    <Button text="가입하기"
-    class="btn-go-join" verticalAlignment="bottom"
-    horizontalAlignment="center"></Button>
-  </GridLayout>
+  <Button row="2" text="입력완료" 
+    class="btn-submit"
+    [isEnabled]="infoForm.valid"
+    (tap)="onSubmit()"
+  ></Button>
+</GridLayout>
