@@ -29,7 +29,7 @@
 			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|locale|uiMode"
 			android:theme="@style/LaunchScreenTheme"
 			android:hardwareAccelerated="true"
-      		android:launchMode="singleTask"
+			android:launchMode="singleTask"
 			android:exported="true">
 
 			<meta-data android:name="SET_THEME_ON_LAUNCH" android:resource="@style/AppTheme" />
@@ -40,5 +40,20 @@
 			</intent-filter>
 		</activity>
 		<activity android:name="com.tns.ErrorReportActivity"/>
+
+		<activity 
+			android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+			android:exported="true">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        
+        <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
+        <data 
+					android:host="oauth"
+					android:scheme="kakaocf8de16641f0b20e02c097655416ea04" />
+			</intent-filter>
+		</activity>
 	</application>
 </manifest>

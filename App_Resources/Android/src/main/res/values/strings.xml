@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">socar</string>
+    <string name="title_activity_kimera">socar</string>
+    <string name="kakao_app_key">cf8de16641f0b20e02c097655416ea04</string>
+    <string name="kakao_native_key">cf8de16641f0b20e02c097655416ea04</string>
+</resources>

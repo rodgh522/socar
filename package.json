@@ -19,6 +19,7 @@
     "@nstudio/nativescript-carousel": "^8.0.3",
     "@nstudio/nativescript-checkbox": "^2.0.5",
     "nativescript-advanced-webview": "^7.0.1",
+    "nativescript-kakao-login": "https://github.com/rodgh522/nativescript-kakao-login.git",
     "rxjs": "~7.5.0",
     "zone.js": "~0.11.5"
   },
