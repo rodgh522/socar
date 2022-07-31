@@ -1,99 +1,137 @@
-<GridLayout>
-  <app-action-bar title="휴대폰 본인인증"></app-action-bar>
-  <GridLayout rows="auto, auto, auto, auto, auto, *"
-    class="page-container">
-    <GridLayout row="0" rows="auto, auto" backgroundColor="#fff">
-      <GridLayout row="0"
-        columns="auto, auto, auto, *" 
-        class="require-agreement-all"
-        (tap)="checked = !checked">
-        <Label text="&#xf058;" [ngClass]="['fas', checked ? 'active-icon' : 'deactive-icon']" col="0"></Label>
-        <Label text="본인확인 서비스 이용약관 전체 동의" col="1" class="text"></Label>
-        <Label text="&#xf621;" class="fas require-icon" col="2"></Label>
-        <Label text="&#xf054;" class="fas" col="3" horizontalAlignment="right"></Label>
-        <!-- <Label text="&#xf077;" class="fas require-icon" col="2"></Label> -->
+<GridLayout rows="auto, *, auto">
+  <app-action-bar row="0" title="휴대폰 본인인증"></app-action-bar>
+  <ScrollView row="1">
+    <GridLayout 
+      rows="auto, *"
+      class="page-container">
+      <GridLayout 
+        row="0" rows="auto, auto" 
+        backgroundColor="#fff"
+        [formGroup]="serviceTerm">
+        <GridLayout row="0"
+          columns="auto, auto, auto, *" 
+          class="require-agreement-all"
+          (tap)="setTermsAll()">
+          <Label col="0" text="&#xf058;" 
+            [ngClass]="['fas', termAll ? 'active-icon' : 'deactive-icon']"></Label>
+          <Label text="본인확인 서비스 이용약관 전체 동의" col="1" class="text"></Label>
+          <Label text="&#xf621;" class="fas require-icon" col="2"></Label>
+          <Label text="&#xf054;" class="fas" col="3" horizontalAlignment="right"></Label>
+          <!-- <Label text="&#xf077;" class="fas require-icon" col="2"></Label> -->
+        </GridLayout>
+        <StackLayout row="1" 
+          [ngClass]="['require-agreement-item', !termAll ? 'view' : 'hide']">
+          <GridLayout 
+            columns="auto, *, auto" (tap)="setPolicyAgree('privacy')">
+            <Label text="&#xf00c;" [ngClass]="['fas', serviceTerm.value['privacy'] ? 'active-icon' : 'deactive-icon']" col="0"></Label>
+            <Label text="(필수) 개인정보 수집 및 이용 동의" col="1" class="text"></Label>
+            <Label text="&#xf054;" class="fas deactive-icon" col="2"></Label>
+          </GridLayout>
+          <GridLayout 
+            columns="auto, *, auto" 
+            (tap)="setPolicyAgree('unique')">
+            <Label text="&#xf00c;" [ngClass]="['fas', serviceTerm.value['unique'] ? 'active-icon' : 'deactive-icon']" col="0"></Label>
+            <Label text="(필수) 고유식별정보 처리" col="1" class="text"></Label>
+            <Label text="&#xf054;" class="fas deactive-icon" col="2"></Label>
+          </GridLayout>
+          <GridLayout 
+            columns="auto, *, auto" 
+            (tap)="setPolicyAgree('service')">
+            <Label text="&#xf00c;" [ngClass]="['fas', serviceTerm.value['service'] ? 'active-icon' : 'deactive-icon']" col="0"></Label>
+            <Label text="(필수) 서비스 이용약관" col="1" class="text"></Label>
+            <Label text="&#xf054;" class="fas deactive-icon" col="2"></Label>
+          </GridLayout>
+          <GridLayout 
+            columns="auto, *, auto" 
+            (tap)="setPolicyAgree('telecom')">
+            <Label text="&#xf00c;" [ngClass]="['fas', serviceTerm.value['telecom'] ? 'active-icon' : 'deactive-icon']" col="0"></Label>
+            <Label text="(필수) 통신사 이용약관" col="1" class="text"></Label>
+            <Label text="&#xf054;" class="fas deactive-icon" col="2"></Label>
+          </GridLayout>
+          <GridLayout 
+            columns="auto, *, auto" 
+            (tap)="setPolicyAgree('third')"
+          >
+            <Label text="&#xf00c;" [ngClass]="['fas', serviceTerm.value['third'] ? 'active-icon' : 'deactive-icon']" col="0"></Label>
+            <Label text="(필수) 개인정보 제3자 제공 동의" col="1" class="text"></Label>
+            <Label text="&#xf054;" class="fas deactive-icon" col="2"></Label>
+          </GridLayout>
+        </StackLayout>
       </GridLayout>
-      <StackLayout row="1" 
-        [ngClass]="['require-agreement-item', checked ? 'view' : 'hide']">
-        <GridLayout columns="auto, *, auto" (tap)="verifyTerms.terms = !verifyTerms.terms">
-          <Label text="&#xf00c;" [ngClass]="['fas', verifyTerms.terms ? 'active-icon' : 'deactive-icon']" col="0"></Label>
-          <Label text="(필수) 개인정보 수집 및 이용 동의" col="1" class="text"></Label>
-          <Label text="&#xf054;" class="fas deactive-icon" col="2"></Label>
-        </GridLayout>
-        <GridLayout columns="auto, *, auto" (tap)="verifyTerms.privacy = !verifyTerms.privacy">
-          <Label text="&#xf00c;" [ngClass]="['fas', verifyTerms.privacy ? 'active-icon' : 'deactive-icon']" col="0"></Label>
-          <Label text="(필수) 고유식별정보 처리" col="1" class="text"></Label>
-          <Label text="&#xf054;" class="fas deactive-icon" col="2"></Label>
-        </GridLayout>
-        <GridLayout columns="auto, *, auto" (tap)="verifyTerms.location = !verifyTerms.location">
-          <Label text="&#xf00c;" [ngClass]="['fas', verifyTerms.location ? 'active-icon' : 'deactive-icon']" col="0"></Label>
-          <Label text="(필수) 서비스 이용약관" col="1" class="text"></Label>
-          <Label text="&#xf054;" class="fas deactive-icon" col="2"></Label>
-        </GridLayout>
-        <GridLayout columns="auto, *, auto" (tap)="verifyTerms.location = !verifyTerms.location">
-          <Label text="&#xf00c;" [ngClass]="['fas', verifyTerms.location ? 'active-icon' : 'deactive-icon']" col="0"></Label>
-          <Label text="(필수) 통신사 이용약관" col="1" class="text"></Label>
-          <Label text="&#xf054;" class="fas deactive-icon" col="2"></Label>
-        </GridLayout>
-        <GridLayout columns="auto, *, auto" (tap)="verifyTerms.location = !verifyTerms.location">
-          <Label text="&#xf00c;" [ngClass]="['fas', verifyTerms.location ? 'active-icon' : 'deactive-icon']" col="0"></Label>
-          <Label text="(필수) 개인정보 제3자 제공 동의" col="1" class="text"></Label>
-          <Label text="&#xf054;" class="fas deactive-icon" col="2"></Label>
-        </GridLayout>
+      <StackLayout row="1" [formGroup]="userInfo">
+        <StackLayout class="info-item">
+          <Label text="이름"></Label>
+          <GridLayout columns="auto, *" class="">
+            <GridLayout col="0" columns="auto, auto" class="field-left" (tap)="openOption()">
+              <Label text="내국인" col="0"></Label>
+              <Label text="&#xf078;" class="fas" col="1"></Label>
+            </GridLayout>
+            <TextField col="1" 
+              class="search-field" 
+              hint="본인 실명 (통신사 가입 이름)" 
+              formControlName="userName"
+              ></TextField>
+          </GridLayout>
+        </StackLayout>
+        <StackLayout class="info-item">
+          <Label text="주민등록번호 앞 7자리"></Label>
+          <GridLayout columns="*, auto, auto, *">
+            <TextField col="0" 
+              class="search-field" 
+              hint="6자리 입력" 
+              maxLength="6"
+              formControlName="dateOfBirth"
+              ></TextField>
+            <Label text="-" col="1"></Label>
+            <TextField col="2" 
+              class="search-field" 
+              hint="1자리" 
+              maxLength="1"
+              formControlName="firstNum"
+              ></TextField>
+            <Label text="* * * * * *" col="3"></Label>
+          </GridLayout>
+        </StackLayout>
+        <StackLayout class="info-item">
+          <Label text="휴대폰 정보"></Label>
+          <GridLayout columns="auto, *">
+            <GridLayout col="0" columns="auto, auto" class="field-left">
+              <Label text="선택" col="0"></Label>
+              <Label text="&#xf078;" class="fas" col="1"></Label>
+            </GridLayout>
+            <TextField col="1" 
+              class="search-field"
+              maxLength="11"
+              formControlName="phone"
+              ></TextField>
+          </GridLayout>
+          <Label text="인증번호 발송" class="btn-send"></Label>
+        </StackLayout>
+        <StackLayout marginTop="15">
+          <GridLayout columns="auto, *">
+            <Label text="&#xf111;" class="fas list-dot" col="0"></Label>
+            <Label text="본인 명의 휴대폰 번호만 인증이 가능합니다." 
+              col="1" 
+              class="text"
+              textWrap="true"
+            ></Label>
+          </GridLayout>
+          <GridLayout columns="auto, *">
+            <Label text="&#xf111;" class="fas list-dot" col="0"></Label>
+            <Label text="휴대폰 본인인증은 나이스 평가정보(주)에서 제공하는 서비스입니다." 
+              col="1" 
+              textWrap="true" 
+              class="text"
+            ></Label>
+          </GridLayout>
+        </StackLayout>
       </StackLayout>
     </GridLayout>
-    <StackLayout row="1" class="info-item">
-      <Label text="이름"></Label>
-      <GridLayout columns="auto, *" class="">
-        <GridLayout col="0" columns="auto, auto" class="field-left" (tap)="openOption()">
-          <Label text="내국인" col="0"></Label>
-          <Label text="&#xf078;" class="fas" col="1"></Label>
-        </GridLayout>
-        <TextField col="1" class="search-field" hint="본인 실명 (통신사 가입 이름)" ></TextField>
-      </GridLayout>
-    </StackLayout>
-    <StackLayout row="2" class="info-item">
-      <Label text="주민등록번호 앞 7자리"></Label>
-      <GridLayout columns="*, auto, auto, *">
-        <TextField col="0" class="search-field" hint="6자리 입력" ></TextField>
-        <Label text="-" col="1"></Label>
-        <TextField col="2" class="search-field" hint="1자리" ></TextField>
-        <Label text="* * * * * *" col="3"></Label>
-      </GridLayout>
-    </StackLayout>
-    <StackLayout row="3" class="info-item">
-      <Label text="휴대폰 정보"></Label>
-      <GridLayout columns="auto, *">
-        <GridLayout col="0" columns="auto, auto" class="field-left">
-          <Label text="선택" col="0"></Label>
-          <Label text="&#xf078;" class="fas" col="1"></Label>
-        </GridLayout>
-        <TextField col="1" class="search-field"></TextField>
-      </GridLayout>
-      <Label text="인증번호 발송" class="btn-send"></Label>
-    </StackLayout>
-    <StackLayout row="4" marginTop="15">
-      <GridLayout columns="auto, *">
-        <Label text="&#xf111;" class="fas list-dot" col="0"></Label>
-        <Label text="본인 명의 휴대폰 번호만 인증이 가능합니다." 
-          col="1" 
-          class="text"
-          textWrap="true"
-        ></Label>
-      </GridLayout>
-      <GridLayout columns="auto, *">
-        <Label text="&#xf111;" class="fas list-dot" col="0"></Label>
-        <Label text="휴대폰 본인인증은 나이스 평가정보(주)에서 제공하는 서비스입니다." 
-          col="1" 
-          textWrap="true" 
-          class="text"
-        ></Label>
-      </GridLayout>
-    </StackLayout>
-    <AbsoluteLayout row="5">
-      <Label text="인증완료"
-        class="btn-submit"
-        ></Label>
-    </AbsoluteLayout>
-  </GridLayout>
+  </ScrollView>
+  <Button row="2"
+    text="인증완료"
+    [isEnabled]="serviceTerm.valid && userInfo.valid"
+    class="btn-submit"
+    nsRouterLink="/join/form"
+  ></Button>
 </GridLayout>
