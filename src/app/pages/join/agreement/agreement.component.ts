@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Agreement } from '~/app/@core/global/type';
 import { JoinService } from '../join.service';
 
@@ -10,25 +11,76 @@ import { JoinService } from '../join.service';
 export class AgreementComponent implements OnInit {
 
   agreement: Agreement;
-  checkAll: boolean;
+  requireForm: FormGroup;
+  optionalForm: FormGroup;
+  termsAll: boolean;
   requireAll: boolean;
   optionalAll: boolean;
-  checked = true;
   
   constructor(
-    private _joinService: JoinService
+    private _joinService: JoinService,
+    private _fb: FormBuilder
   ) { 
     this.agreement = this._joinService.agreement;
-    this.checkAll = false;
+    this.termsAll = false;
     this.requireAll = false;
     this.optionalAll = false;
   }
 
   ngOnInit(): void {
+    this.initForm();
+    this.watchTerms();
+  }
+
+  initForm() {
+    this.requireForm = this._fb.group({
+      terms: [false, [ Validators.requiredTrue ]],
+      privacy: [false, [ Validators.requiredTrue ]],
+      location: [false, [ Validators.requiredTrue ]]
+    });
+
+    this.optionalForm = this._fb.group({
+      push: [false],
+      SMS: [false],
+      email: [false]
+    });
   }
   
-  watchRequires() {
-    this.requireAll = this.agreement.terms && this.agreement.privacy && this.agreement.location;
-    return this.requireAll;
+  watchTerms() {
+    this.requireForm.statusChanges.subscribe(res => {
+      if (/^VALID$/.test(res)) {
+        this.requireAll = true;
+      } else {
+        this.termsAll = false;
+      }
+    });
+
+    this.optionalForm.valueChanges.subscribe(res => {
+      const values = Object.values(res);
+      this.optionalAll = values.includes(true) ? true : false;
+
+      if (!this.optionalAll) {
+        this.termsAll = false;
+      }
+    });
+  }
+
+  setPolicyAgree(group: FormGroup, target: string) {
+    let preVal = group.value[target];
+    group.get(target).setValue(!preVal);
+  }
+
+  setTermsAll() {
+    this.termsAll = !this.termsAll;
+
+    this.setGroupAll(this.optionalForm, this.termsAll, 'optionalAll');
+    this.setGroupAll(this.requireForm, this.termsAll, 'requireAll');
+  }
+  
+  setGroupAll(group: FormGroup, value: boolean, target: string) {
+    this[target] = value;
+    for (const key in group.controls) {
+      group.get(key).setValue(value);
+    }
   }
 }

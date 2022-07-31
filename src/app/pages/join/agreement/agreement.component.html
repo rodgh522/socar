@@ -1,57 +1,66 @@
-<StackLayout>
-  <app-action-bar title="약관 동의"></app-action-bar>
-  <GridLayout rows="auto, auto, auto, auto, *, auto"
+<GridLayout rows="auto, *, auto">
+  <app-action-bar row="0" title="약관 동의"></app-action-bar>
+  <GridLayout row="1"
+    rows="auto, auto, auto, auto, *"
     class="page-container">
-    <GridLayout columns="auto, *" class="label-line" (tap)="checked = !checked">
-      <Label text="&#xf058;" class="fas" col="0"></Label>
+    <GridLayout columns="auto, *" class="label-line" (tap)="setTermsAll()">
+      <Label text="&#xf058;" [ngClass]="['fas', termsAll ? 'active-icon': 'deactive-icon']" col="0"></Label>
       <Label text="전체 내용에 동의합니다." col="1" class="text"></Label>
     </GridLayout>
-    <GridLayout row="1" rows="auto, auto" backgroundColor="#fff">
+    <GridLayout row="1" rows="auto, auto" 
+      backgroundColor="#fff"
+      [formGroup]="requireForm"
+      >
       <GridLayout row="0"
         columns="auto, auto, auto" 
         class="require-agreement-all"
-        (tap)="requireAll = !requireAll">
+        (tap)="setGroupAll(requireForm, !requireAll, 'requireAll')">
         <Label text="&#xf058;" [ngClass]="['fas', requireAll ? 'active-icon' : 'deactive-icon']" col="0"></Label>
         <Label text="서비스 이용약관 전체 동의" col="1" class="text"></Label>
         <Label text="&#xf621;" class="fas require-icon" col="2"></Label>
       </GridLayout>
       <StackLayout row="1" 
-        [ngClass]="['require-agreement-item', requireAll ? 'view' : 'hide']">
-        <GridLayout columns="auto, *, auto" (tap)="agreement.terms = !agreement.terms">
-          <Label text="&#xf00c;" [ngClass]="['fas', agreement.terms ? 'active-icon' : 'deactive-icon']" col="0"></Label>
+        [ngClass]="['require-agreement-item', !requireAll ? 'view' : 'hide']">
+        <GridLayout columns="auto, *, auto" (tap)="setPolicyAgree(requireForm, 'terms')">
+          <Label text="&#xf00c;" [ngClass]="['fas', requireForm.value['terms'] ? 'active-icon' : 'deactive-icon']" col="0"></Label>
           <Label text="(필수) 쏘카 이용약관" col="1" class="text"></Label>
           <Label text="&#xf054;" class="fas deactive-icon" col="2"></Label>
         </GridLayout>
-        <GridLayout columns="auto, *, auto" (tap)="agreement.privacy = !agreement.privacy">
-          <Label text="&#xf00c;" [ngClass]="['fas', agreement.privacy ? 'active-icon' : 'deactive-icon']" col="0"></Label>
+        <GridLayout columns="auto, *, auto" (tap)="setPolicyAgree(requireForm, 'privacy')">
+          <Label text="&#xf00c;" [ngClass]="['fas', requireForm.value['privacy'] ? 'active-icon' : 'deactive-icon']" col="0"></Label>
           <Label text="(필수) 개인정보 수집 및 이용 동의" col="1" class="text"></Label>
           <Label text="&#xf054;" class="fas deactive-icon" col="2"></Label>
         </GridLayout>
-        <GridLayout columns="auto, *, auto" (tap)="agreement.location = !agreement.location">
-          <Label text="&#xf00c;" [ngClass]="['fas', agreement.location ? 'active-icon' : 'deactive-icon']" col="0"></Label>
+        <GridLayout columns="auto, *, auto" (tap)="setPolicyAgree(requireForm, 'location')">
+          <Label text="&#xf00c;" [ngClass]="['fas', requireForm.value['location'] ? 'active-icon' : 'deactive-icon']" col="0"></Label>
           <Label text="(필수) 위치정보 이용약관" col="1" class="text"></Label>
           <Label text="&#xf054;" class="fas deactive-icon" col="2"></Label>
         </GridLayout>
       </StackLayout>
     </GridLayout>
-    <StackLayout row="2" marginTop="15" backgroundColor="#fff">
-      <GridLayout columns="auto, *" class="optional-agreement-all">
-        <Label text="&#xf058;" class="fas" col="0"></Label>
+    <StackLayout row="2" marginTop="15" 
+      backgroundColor="#fff"
+      [formGroup]="optionalForm"
+      >
+      <GridLayout columns="auto, *" 
+        class="optional-agreement-all"
+        (tap)="setGroupAll(optionalForm, !optionalAll, 'optionalAll')">
+        <Label text="&#xf058;" [ngClass]="['fas', optionalAll ? 'active-icon' : 'deactive-icon']" col="0"></Label>
         <Label text="(선택) 할인쿠폰 이벤트 등 마케팅 정보 수신 동의" col="1" class="text"></Label>
       </GridLayout>
       <StackLayout class="optional-agreement-item">
         <Label text="모든 채널 수신 동의 시 1시간 무료 쿠폰 드려요." class="text" marginLeft="10" marginBottom="10"></Label>
         <GridLayout columns="auto, auto, auto">
-          <GridLayout col="0" columns="auto, auto" (tap)="agreement.push = !agreement.push">
-            <Label text="&#xf058;" [ngClass]="['fas', agreement.push ? 'active-icon' : 'deactive-icon']" col="0"></Label>
+          <GridLayout col="0" columns="auto, auto" (tap)="setPolicyAgree(optionalForm, 'push')">
+            <Label text="&#xf058;" [ngClass]="['fas', optionalForm.value['push'] ? 'active-icon' : 'deactive-icon']" col="0"></Label>
             <Label text="Push" col="1" class="text"></Label>
           </GridLayout>
-          <GridLayout col="1" columns="auto, auto" (tap)="agreement.SMS = !agreement.SMS">
-            <Label text="&#xf058;" [ngClass]="['fas', agreement.SMS ? 'active-icon' : 'deactive-icon']" col="0"></Label>
+          <GridLayout col="1" columns="auto, auto" (tap)="setPolicyAgree(optionalForm, 'SMS')">
+            <Label text="&#xf058;" [ngClass]="['fas', optionalForm.value['SMS'] ? 'active-icon' : 'deactive-icon']" col="0"></Label>
             <Label text="SMS" col="1" class="text"></Label>
           </GridLayout>
-          <GridLayout col="2" columns="auto, auto" (tap)="agreement.email = !agreement.email">
-            <Label text="&#xf058;" [ngClass]="['fas', agreement.email ? 'active-icon' : 'deactive-icon']" col="0"></Label>
+          <GridLayout col="2" columns="auto, auto" (tap)="setPolicyAgree(optionalForm, 'email')">
+            <Label text="&#xf058;" [ngClass]="['fas', optionalForm.value['email'] ? 'active-icon' : 'deactive-icon']" col="0"></Label>
             <Label text="Email" col="1" class="text"></Label>
           </GridLayout>
         </GridLayout>
@@ -67,6 +76,11 @@
         <Label text="수신 거부 시 쿠폰 혜택 및 이벤트 안내를 받으실 수 없습니다." col="1" textWrap="true" class="text"></Label>
       </GridLayout>
     </StackLayout>
-    <Label row="4" text="가입 계속하기" verticalAlignment="bottom" class="btn-submit"></Label>
   </GridLayout>
-</StackLayout>
+  <Button row="2" text="가입 계속하기" 
+    verticalAlignment="bottom" 
+    [isEnabled]="requireForm.valid"
+    class="btn-submit"
+    nsRouterLink="/join/verify"
+  ></Button>
+</GridLayout>
