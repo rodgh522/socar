@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { formToObj } from '~/app/@core/global/global-fn';
 import { JoinService } from '../join.service';
 
@@ -8,22 +9,28 @@ import { JoinService } from '../join.service';
   templateUrl: './verify.component.html',
   styleUrls: ['./verify.component.scss']
 })
-export class VerifyComponent implements OnInit {
+export class VerifyComponent implements OnInit, OnDestroy {
 
   serviceTerm: FormGroup;
   termAll: boolean;
   userInfo: FormGroup;
+  _unsubscription: Subscription;
 
   constructor(
     private _joinService: JoinService,
     private _fb: FormBuilder
   ) { 
     this.termAll = false;
+    this._unsubscription = new Subscription;
   }
 
   ngOnInit(): void {
     this.initForm();  
     this.watchServiceTerm();
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscription.unsubscribe();
   }
 
   initForm() {
@@ -54,11 +61,13 @@ export class VerifyComponent implements OnInit {
   }
 
   watchServiceTerm() {
-    this.serviceTerm.statusChanges.subscribe(res => {
-      if (/^VALID$/.test(res)) {
-        this.termAll = true;
-      } 
-    });
+    this._unsubscription.add(
+      this.serviceTerm.statusChanges.subscribe(res => {
+        if (/^VALID$/.test(res)) {
+          this.termAll = true;
+        } 
+      })
+    )
   }
 
   setPolicyAgree(target: string) {
