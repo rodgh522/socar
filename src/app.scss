@@ -35,3 +35,15 @@ Button.-primary {
   font-weight: 900;
   font-size: 20;
 }
+
+TextField { border-width: 0; placeholder-color: #999}
+
+.list-dot{ font-size: 3; vertical-align: middle; margin-left: 15; color: #999; margin-right: 10;}
+.text { color: #999;}
+.invalid-border {
+  border-color: #f11;
+}
+.error-hint{
+  font-size: 12;
+  color: #f11;
+}

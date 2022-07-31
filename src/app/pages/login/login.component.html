@@ -1,1 +1,19 @@
-<p>login works!</p>
+<GridLayout rows="auto, *, auto">
+  <app-action-bar row="0"></app-action-bar>
+  <GridLayout row="1"
+    class="page-container">
+    <StackLayout class="field-container">
+      <Label text="로그인" class="title"></Label>
+      <TextField hint="가입한 이메일 주소 입력" [formControl]="loginId"></TextField>
+      <TextField hint="비밀번호 입력" [formControl]="pwd" secure="true"></TextField>
+      <Label [text]="failMsg" *ngIf="isFailed" class="error-hint"></Label>
+      <Button 
+        [isEnabled]="loginId.valid && pwd.valid"
+        text="로그인하기"
+        (tap)="onLogin()"
+        ></Button>
+      <Label text="가입정보 찾기" class="find-info"></Label>
+    </StackLayout>
+  </GridLayout>
+  <Button row="3" text="kakao" (tap)="kakao()"></Button>
+</GridLayout>
