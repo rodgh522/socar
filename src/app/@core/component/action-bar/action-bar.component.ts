@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -9,9 +10,14 @@ export class ActionBarComponent implements OnInit {
 
   @Input() title: string;
   
-  constructor() { }
+  constructor(
+    private _location: Location
+  ) { }
 
   ngOnInit(): void {
   }
 
+  back() {
+    this._location.back();
+  }
 }
