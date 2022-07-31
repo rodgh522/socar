@@ -16,14 +16,18 @@ export class JoinService {
   constructor() { }
 
   onSubmit() {
-    const user = {
-      ...this.events,
-      ...this.basicInfo,
-      ...this.loginInfo
-    };
+    return new Promise(resolve => {
+      const user = [{
+        ...this.events,
+        ...this.basicInfo,
+        ...this.loginInfo
+      }];
+  
+      let json = JSON.stringify(user);
+      setString('storedUsers', json);
 
-    let json = JSON.stringify(user);
-    setString('storedUsers', json);
+      resolve(true);
+    });
   }
   
 }

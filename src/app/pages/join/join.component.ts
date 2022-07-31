@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { formToObj } from '~/app/@core/global/global-fn';
 import { FormVaildatorService } from '~/app/@core/service/form-vaildator.service';
 import { JoinService } from './join.service';
@@ -16,7 +17,8 @@ export class JoinComponent implements OnInit {
   constructor(
     private _joinService: JoinService,
     private _fb: FormBuilder,
-    private _formValidatorService: FormVaildatorService
+    private _formValidatorService: FormVaildatorService,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +48,9 @@ export class JoinComponent implements OnInit {
     delete loginInfo.rePwd;
 
     this._joinService.loginInfo = loginInfo;
-    this._joinService.onSubmit();
+    this._joinService.onSubmit().then(res => {
+      this._router.navigateByUrl('/landing')      
+    });
   }
   
 }

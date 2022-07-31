@@ -129,7 +129,7 @@
     </GridLayout>
   </ScrollView>
   <Button row="2"
-    text="인증완료 {{serviceTerm.valid}} {{ userInfo.valid }}"
+    text="인증완료"
     [isEnabled]="serviceTerm.valid && userInfo.valid"
     class="btn-submit"
     (tap)="nextPhase()"
