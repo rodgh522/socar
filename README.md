@@ -12,3 +12,13 @@
 
 ## java
 > jdk8
+
+# run android
+
+`
+ $ npm i
+`
+
+`
+ $ns run android
+`
